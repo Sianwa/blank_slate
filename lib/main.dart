@@ -4,6 +4,7 @@ import 'package:blank_slate/utils/service_locator.dart';
 import 'package:blank_slate/utils/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
@@ -11,11 +12,12 @@ void main() async{
   await dotenv.load(); // Loads env file
   await setUpLocator(); // Dependency Injector
   await locator<NotificationService>().initNotifications(); // Start listening for notifications
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
+  final GoRouter _router = locator<AppRouter>().mainRouter;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'blank_slate',
           theme: MainTheme.defaultTheme,
-          routerConfig: AppRouter().mainRouter,
+          routerConfig: _router,
         ),
     );
   }
