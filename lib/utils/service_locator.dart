@@ -3,6 +3,8 @@ import 'package:blank_slate/utils/services/notification_service.dart';
 import 'package:blank_slate/utils/services/shared_pref_service.dart';
 import 'package:get_it/get_it.dart';
 
+import 'appNavigation/router_config.dart';
+
 final GetIt locator = GetIt.instance;
 
 Future setUpLocator() async{
@@ -15,5 +17,7 @@ Future setUpLocator() async{
   //shared preference
   var instance = await SharedPrefService.getInstance();
   locator.registerSingleton<SharedPrefService>(instance);
+
+  locator.registerLazySingleton<AppRouter>(() => AppRouter());
 
 }
